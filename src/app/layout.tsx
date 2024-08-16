@@ -16,7 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      {/* check if we're in development environment and show debug screen size */}
+      <body
+        className={`${
+          process.env.NODE_ENV === "development" ? "debug-screens" : ""
+        } ${inter.className}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
