@@ -1,5 +1,6 @@
 import Image from "next/image";
 import desktopBg from "@/assets/images/background-pattern-desktop.svg";
+import mobileBg from "@/assets/images/background-pattern-mobile.svg";
 
 export default function Home() {
   return (
@@ -9,7 +10,12 @@ export default function Home() {
         <Image
           src={desktopBg}
           alt="desktop-background"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover hidden md:block"
+        ></Image>
+        <Image
+          src={mobileBg}
+          alt="mobile-background"
+          className="w-full h-full object-cover md:hidden"
         ></Image>
       </div>
     </main>
