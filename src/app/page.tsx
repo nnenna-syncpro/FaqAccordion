@@ -17,6 +17,8 @@ export default function Home() {
         </h1>
         <div>
           <Accordian />
+          <Accordian />
+          <Accordian />
         </div>
       </section>
     </main>
