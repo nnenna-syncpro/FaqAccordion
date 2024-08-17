@@ -13,12 +13,17 @@ export default function Home() {
       <section className="relative bg-white mx-auto max-w-xs sm:max-w-4xl rounded-xl flex flex-col gap-4 mt-24 md:mt-35 p-5">
         <h1 className="flex gap-3 items-center">
           <Image src={IconStar} alt="star-icon" className="h-9 w-auto"></Image>
-          <span className="font-bold text-5xl">FAQs</span>
+          <span className="font-bold text-4xl">FAQs</span>
         </h1>
         <div>
-          <Accordian />
-          <Accordian />
-          <Accordian />
+          {faqs.map((faq, i) => (
+            <Accordian
+              question={faq.question}
+              answer={faq.answer}
+              isAccordionOpen={faq.isAccordionOpen}
+              key={i}
+            />
+          ))}
         </div>
       </section>
     </main>
@@ -32,6 +37,7 @@ function BackgroundImage() {
         src={desktopBg}
         alt="desktop-background"
         className="w-full h-full object-cover hidden md:block"
+        priority={true}
       ></Image>
       <Image
         src={mobileBg}
@@ -41,3 +47,22 @@ function BackgroundImage() {
     </div>
   );
 }
+
+const faqs = [
+  {
+    question: "What is Next.js?",
+    answer: "Next.js is a React framework for building web applications.",
+    isAccordionOpen: false,
+  },
+  {
+    question: "How does Tailwind CSS work?",
+    answer:
+      "Tailwind CSS is a utility-first CSS framework for rapidly building custom designs.",
+    isAccordionOpen: false,
+  },
+  {
+    question: "What is the purpose of getStaticProps?",
+    answer: "getStaticProps is used to fetch data at build time in Next.js.",
+    isAccordionOpen: false,
+  },
+];

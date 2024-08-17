@@ -6,13 +6,17 @@ import IconPlus from "@/assets/images/icon-plus.svg";
 import { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 
-type Props = {};
+type Props = {
+  question: string;
+  answer: string;
+  isAccordionOpen?: boolean;
+};
 
-export default function Accordian({}: Props) {
+export default function Accordian(props: Props) {
   const [isAccordionOpen, setAccordionOpen] = useState(false);
 
   const toggleAccordionOpen = () => {
-    // sets setAccordionOpen to the opposite ofnisAccordionOpen
+    // sets setAccordionOpen to the opposite of isAccordionOpen
     setAccordionOpen(!isAccordionOpen);
   };
 
@@ -23,23 +27,31 @@ export default function Accordian({}: Props) {
       {/* question */}
       <div
         onClick={toggleAccordionOpen}
-        className="flex justify-between cursor-pointer font-bold text-xl md:text-2xl"
+        className="flex justify-between cursor-pointer font-semibold text-xl md:text-2xl"
       >
-        <span>Question</span>
+        <span>{props.question}</span>
         <div>
           {isAccordionOpen ? (
-            <Image src={IconMinus} alt="minus-icon" className="h-6"></Image>
+            <Image
+              src={IconMinus}
+              alt="minus-icon"
+              className="h-6 w-auto"
+            ></Image>
           ) : (
-            <Image src={IconPlus} alt="plus-icon" className="h-6"></Image>
+            <Image
+              src={IconPlus}
+              alt="plus-icon"
+              className="h-6 w-auto"
+            ></Image>
           )}
         </div>
       </div>
       {/* if accordion is open then show answer */}
       {isAccordionOpen && (
         <div>
-          {/* for the answer use backticks to avoid any text errors */}
-          <p className="text-base md:text-lg text-gray-500 pb-3">{`Answer`}</p>
-          <hr className="bg-gray-100" />
+          <p className="text-base md:text-lg text-gray-500 pb-3">
+            {props.answer}
+          </p>
         </div>
       )}
     </div>
