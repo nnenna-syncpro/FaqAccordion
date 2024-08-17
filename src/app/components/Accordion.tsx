@@ -4,15 +4,27 @@ import Image from "next/image";
 import IconMinus from "@/assets/images/icon-minus.svg";
 import IconPlus from "@/assets/images/icon-plus.svg";
 import { useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 type Props = {};
 
 export default function Accordian({}: Props) {
   const [isAccordionOpen, setAccordionOpen] = useState(false);
+
+  const toggleAccordionOpen = () => {
+    // sets setAccordionOpen to the opposite ofnisAccordionOpen
+    setAccordionOpen(!isAccordionOpen);
+  };
+
+  const [animationParent] = useAutoAnimate();
+
   return (
-    <div className="flex flex-col gap-4 py-4">
+    <div ref={animationParent} className="flex flex-col gap-4 py-4">
       {/* question */}
-      <div className="flex justify-between cursor-pointer font-bold text-xl md:text-2xl">
+      <div
+        onClick={toggleAccordionOpen}
+        className="flex justify-between cursor-pointer font-bold text-xl md:text-2xl"
+      >
         <span>Question</span>
         <div>
           {isAccordionOpen ? (
