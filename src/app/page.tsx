@@ -2,6 +2,7 @@ import Image from "next/image";
 import desktopBg from "@/assets/images/background-pattern-desktop.svg";
 import mobileBg from "@/assets/images/background-pattern-mobile.svg";
 import IconStar from "@/assets/images/icon-star.svg";
+import Accordian from "./components/Accordion";
 
 export default function Home() {
   return (
@@ -14,6 +15,9 @@ export default function Home() {
           <Image src={IconStar} alt="star-icon" className="h-9 w-auto"></Image>
           <span className="font-bold text-5xl">FAQs</span>
         </h1>
+        <div>
+          <Accordian />
+        </div>
       </section>
     </main>
   );
