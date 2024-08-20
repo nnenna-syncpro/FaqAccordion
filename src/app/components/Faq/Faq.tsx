@@ -27,7 +27,7 @@ export default function Faq({
   setOpen,
 }: FaqProps) {
   return (
-    <section className="relative bg-white mx-auto max-w-xs sm:max-w-4xl rounded-xl flex flex-col gap-4 mt-24 md:mt-35 p-5">
+    <section className="relative bg-white mx-auto max-w-sm sm:max-w-4xl rounded-xl flex flex-col gap-4 mt-10 md:mt-35 p-5">
       {/* max width on mobile screens is 320px and 768px on larger screens */}
       <h1 className="flex gap-3 items-center justify-between">
         <div className="flex gap-3 items-center">

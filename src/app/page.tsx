@@ -4,6 +4,7 @@ import desktopBg from "@/assets/images/background-pattern-desktop.svg";
 import mobileBg from "@/assets/images/background-pattern-mobile.svg";
 import { useState } from "react";
 import Faq from "./components/Faq/Faq";
+import Search from "./components/Search";
 
 export default function Home() {
   //create state for each accordion item and expand/collapse all
@@ -32,6 +33,7 @@ export default function Home() {
     <main className="min-h-screen relative p-4 pb-10 bg-purple-100">
       Hello World!
       <BackgroundImage />
+      <Search />
       <Faq
         handleToggle={toggleOpen}
         isOpen={isSomeOpen}
@@ -49,13 +51,13 @@ function BackgroundImage() {
       <Image
         src={desktopBg}
         alt="desktop-background"
-        className="w-full h-full object-cover hidden md:block"
+        className="w-full h-full object-cover hidden md:block md:h-72"
         priority={true}
       ></Image>
       <Image
         src={mobileBg}
         alt="mobile-background"
-        className="w-full h-full object-cover md:hidden"
+        className="w-full h-full object-cover sm:h-72 md:hidden"
       ></Image>
     </div>
   );
