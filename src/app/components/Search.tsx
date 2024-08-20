@@ -1,14 +1,40 @@
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
-export default function Search() {
+import { ChangeEvent, KeyboardEvent, useState } from "react";
+
+type SearchProps = {
+  //callback function to perform search function
+  onSearch: (value: string) => void;
+};
+
+export default function Search({ onSearch }: SearchProps) {
+  //create state for search term
+  const [query, setQuery] = useState("");
+
+  const searchHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    //set the search term to the value of input change
+    setQuery(event.target.value);
+  };
+
+  //check if enter key is pressed
+  const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+    //submit search term, make it readily available, and do a callback to check the value of the input is currently
+    if (event.key === "Enter") {
+      //call onSearch function and pass search term
+      onSearch(query);
+    }
+  };
+
   return (
     <section className="relative bg-white mx-auto max-w-sm sm:max-w-4xl rounded-xl mt-10 p-3">
       <input
         className="text-base md:text-lg text-gray-500 focus:outline-none cursor-pointer w-full"
-        type="text"
+        type="search"
         required
         placeholder="Search..."
+        onChange={searchHandler}
+        onKeyDown={keyDownHandler}
       ></input>
       <button type="submit" className="absolute">
         {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="text-gray-500 ml-4 mt-1"/> */}

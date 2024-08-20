@@ -1,12 +1,29 @@
 "use client";
-import Image from "next/image";
 import desktopBg from "@/assets/images/background-pattern-desktop.svg";
 import mobileBg from "@/assets/images/background-pattern-mobile.svg";
-import { useState } from "react";
+import Image from "next/image";
+import { useMemo, useState } from "react";
 import Faq from "./components/Faq/Faq";
 import Search from "./components/Search";
 
 export default function Home() {
+  //use state to manage all faqs
+  const [faqList] = useState(faqs);
+  //create state to handle search term
+  const [searchQuery, setSearchQuery] = useState("");
+
+  //get search term from search input value
+  const handleSearch = (value: string) => {
+    setSearchQuery(value);
+  };
+
+  //filter FAQs list using search term. But only when faqs or search term changes
+  const filteredFaqList = useMemo(() => {
+    return faqList.filter((faq) => {
+      return faq.question.toLowerCase().includes(searchQuery.toLowerCase());
+    });
+  }, [faqList, searchQuery]);
+
   //create state for each accordion item and expand/collapse all
   const [isOpen, setOpen] = useState([
     false,
@@ -31,13 +48,12 @@ export default function Home() {
 
   return (
     <main className="min-h-screen relative p-4 pb-10 bg-purple-100">
-      Hello World!
       <BackgroundImage />
-      <Search />
+      <Search onSearch={handleSearch} />
       <Faq
         handleToggle={toggleOpen}
         isOpen={isSomeOpen}
-        faqs={faqs}
+        faqs={filteredFaqList}
         active={isOpen}
         setOpen={setOpen}
       />
