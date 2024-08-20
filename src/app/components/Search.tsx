@@ -1,5 +1,5 @@
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 
@@ -36,8 +36,11 @@ export default function Search({ onSearch }: SearchProps) {
         onChange={searchHandler}
         onKeyDown={keyDownHandler}
       ></input>
-      <button type="submit" className="absolute">
-        {/* <FontAwesomeIcon icon={faMagnifyingGlass} className="text-gray-500 ml-4 mt-1"/> */}
+      <button
+        type="submit"
+        className="absolute right-1 top-1/2 -translate-y-1/2 p-3 rounded-full"
+      >
+        <FontAwesomeIcon icon={faMagnifyingGlass} className="text-gray-500" />
       </button>
     </section>
   );
