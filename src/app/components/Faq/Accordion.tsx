@@ -1,23 +1,32 @@
 "use client"; // useState only works in a Client Component marked with "use client". so they're Server Components by default.
-import * as React from "react";
-import Image from "next/image";
 import IconMinus from "@/assets/images/icon-minus.svg";
 import IconPlus from "@/assets/images/icon-plus.svg";
-import { useState } from "react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import Image from "next/image";
+import { Dispatch, SetStateAction, useState } from "react";
 
 type Props = {
   question: string;
   answer: string;
-  isAccordionOpen?: boolean;
+  id: number;
+  active: boolean[];
+  setOpen: Dispatch<SetStateAction<boolean[]>>;
 };
 
-export default function Accordian(props: Props) {
-  const [isAccordionOpen, setAccordionOpen] = useState(false);
-
+export default function Accordian({
+  question,
+  answer,
+  id,
+  active,
+  setOpen,
+}: Props) {
   const toggleAccordionOpen = () => {
-    // sets setAccordionOpen to the opposite of isAccordionOpen
-    setAccordionOpen(!isAccordionOpen);
+    //keep a copy of the isOpen array in state
+    let isActive = [...active!];
+    //change the state of one item
+    isActive[id] = !isActive[id];
+    //set the new state
+    setOpen(isActive);
   };
 
   const [animationParent] = useAutoAnimate();
@@ -29,9 +38,9 @@ export default function Accordian(props: Props) {
         onClick={toggleAccordionOpen}
         className="flex justify-between cursor-pointer font-semibold text-xl md:text-2xl"
       >
-        <span>{props.question}</span>
+        <span>{question}</span>
         <div>
-          {isAccordionOpen ? (
+          {active![id] ? (
             <Image
               src={IconMinus}
               alt="minus-icon"
@@ -47,11 +56,9 @@ export default function Accordian(props: Props) {
         </div>
       </div>
       {/* if accordion is open then show answer */}
-      {isAccordionOpen && (
+      {active![id] && (
         <div>
-          <p className="text-base md:text-lg text-gray-500 pb-3">
-            {props.answer}
-          </p>
+          <p className="text-base md:text-lg text-gray-500 pb-3">{answer}</p>
         </div>
       )}
     </div>

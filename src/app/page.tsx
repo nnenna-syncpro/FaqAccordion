@@ -6,18 +6,39 @@ import { useState } from "react";
 import Faq from "./components/Faq/Faq";
 
 export default function Home() {
-  const [isOpen, setOpen] = useState(false);
+  //create state for each accordion item and expand/collapse all
+  const [isOpen, setOpen] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
+  //check if any state changes to true
+  const isSomeOpen = isOpen.some((item) => item);
+
+  //handle toggle for all states including expand/collapse all
   const toggleOpen = () => {
-    // sets setAccordionOpen to the opposite of isAccordionOpen
-    setOpen(!isOpen);
+    //if any state is true change it to false and vice versa
+    isSomeOpen
+      ? setOpen([false, false, false, false, false, false, false])
+      : setOpen([true, true, true, true, true, true, true]);
   };
 
   return (
     <main className="min-h-screen relative p-4 pb-10 bg-purple-100">
       Hello World!
       <BackgroundImage />
-      <Faq handleToggle={toggleOpen} isOpen={isOpen} faqs={faqs} />
+      <Faq
+        handleToggle={toggleOpen}
+        isOpen={isSomeOpen}
+        faqs={faqs}
+        active={isOpen}
+        setOpen={setOpen}
+      />
     </main>
   );
 }
@@ -44,17 +65,17 @@ const faqs = [
   {
     question: "What is Next.js?",
     answer: "Next.js is a React framework for building web applications.",
-    isAccordionOpen: false,
+    id: 1,
   },
   {
     question: "How does Tailwind CSS work?",
     answer:
       "Tailwind CSS is a utility-first CSS framework for rapidly building custom designs.",
-    isAccordionOpen: false,
+    id: 2,
   },
   {
     question: "What is the purpose of getStaticProps?",
     answer: "getStaticProps is used to fetch data at build time in Next.js.",
-    isAccordionOpen: false,
+    id: 3,
   },
 ];
