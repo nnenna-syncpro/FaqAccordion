@@ -3,6 +3,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDebounceCallback } from "usehooks-ts";
 
 type SearchProps = {
   //callback function to perform search function
@@ -34,6 +35,8 @@ export default function Search({ onSearch }: SearchProps) {
     router.push(`${pathname}?${query.toString()}`);
   };
 
+  const debounce = useDebounceCallback(searchHandler, 500);
+
   return (
     <section className="relative bg-white mx-auto max-w-sm sm:max-w-4xl rounded-xl mt-10 p-3">
       <input
@@ -41,7 +44,7 @@ export default function Search({ onSearch }: SearchProps) {
         type="search"
         required
         placeholder="Search..."
-        onChange={(e) => searchHandler(e.target.value)}
+        onChange={(e) => debounce(e.target.value)}
         defaultValue={searchTerm}
       ></input>
       <button
