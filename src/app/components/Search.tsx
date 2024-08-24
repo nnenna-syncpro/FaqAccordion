@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type SearchProps = {
   //callback function to perform search function
@@ -9,24 +10,13 @@ type SearchProps = {
 };
 
 export default function Search({ onSearch }: SearchProps) {
-  //create state for search term
-  const [query, setQuery] = useState("");
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  const searchHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    //set the search term to the value of input change
-    setQuery(event.target.value);
+  const searchHandler = (value: string) => {
+    console.log(value);
   };
-
-  //check if enter key is pressed
-  //   const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-  //     //submit search term, make it readily available, and do a callback to check the value of the input is currently
-  //     if (event.key === "Enter") {
-  //       //call onSearch function and pass search term
-  //       onSearch(query);
-  //     }
-  //   };
-
-  onSearch(query);
 
   return (
     <section className="relative bg-white mx-auto max-w-sm sm:max-w-4xl rounded-xl mt-10 p-3">
@@ -35,8 +25,7 @@ export default function Search({ onSearch }: SearchProps) {
         type="search"
         required
         placeholder="Search..."
-        onChange={searchHandler}
-        // onKeyDown={keyDownHandler}
+        onChange={(e) => searchHandler(e.target.value)}
       ></input>
       <button
         type="submit"
