@@ -1,14 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-
-import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebounceCallback } from "usehooks-ts";
-
-type SearchProps = {
-  //callback function to perform search function
-  onSearch: (value: string) => void;
-};
 
 export default function Search() {
   const router = useRouter();
