@@ -16,6 +16,19 @@ export default function Search({ onSearch }: SearchProps) {
 
   const searchHandler = (value: string) => {
     console.log(value);
+
+    //create a search param that you can modify
+    const query = new URLSearchParams(searchParams);
+
+    //if theres no search value remove ?search= from url and vice versa
+    if (value.trim() === "") {
+      query.delete("search");
+    } else {
+      query.set("search", value);
+    }
+
+    //write the query string /?search=value to url
+    router.push(`${pathname}?${query.toString()}`);
   };
 
   return (
