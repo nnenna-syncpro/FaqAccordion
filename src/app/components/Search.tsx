@@ -18,13 +18,15 @@ export default function Search({ onSearch }: SearchProps) {
   };
 
   //check if enter key is pressed
-  const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-    //submit search term, make it readily available, and do a callback to check the value of the input is currently
-    if (event.key === "Enter") {
-      //call onSearch function and pass search term
-      onSearch(query);
-    }
-  };
+  //   const keyDownHandler = (event: KeyboardEvent<HTMLInputElement>) => {
+  //     //submit search term, make it readily available, and do a callback to check the value of the input is currently
+  //     if (event.key === "Enter") {
+  //       //call onSearch function and pass search term
+  //       onSearch(query);
+  //     }
+  //   };
+
+  onSearch(query);
 
   return (
     <section className="relative bg-white mx-auto max-w-sm sm:max-w-4xl rounded-xl mt-10 p-3">
@@ -34,7 +36,7 @@ export default function Search({ onSearch }: SearchProps) {
         required
         placeholder="Search..."
         onChange={searchHandler}
-        onKeyDown={keyDownHandler}
+        // onKeyDown={keyDownHandler}
       ></input>
       <button
         type="submit"
