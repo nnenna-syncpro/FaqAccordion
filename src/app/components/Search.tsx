@@ -14,6 +14,9 @@ export default function Search({ onSearch }: SearchProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
+  //keep input value after refresh
+  const searchTerm = searchParams.get("search") ?? "";
+
   const searchHandler = (value: string) => {
     console.log(value);
 
@@ -39,6 +42,7 @@ export default function Search({ onSearch }: SearchProps) {
         required
         placeholder="Search..."
         onChange={(e) => searchHandler(e.target.value)}
+        defaultValue={searchTerm}
       ></input>
       <button
         type="submit"
