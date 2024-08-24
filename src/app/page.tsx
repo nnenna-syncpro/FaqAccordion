@@ -5,22 +5,23 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import Faq from "./components/Faq/Faq";
 import Search from "./components/Search";
+import { useSearchParams } from "next/navigation";
 
 export default function Home() {
   //use state to manage all faqs
   const [faqList] = useState(faqs);
-  //create state to handle search term
-  const [searchQuery, setSearchQuery] = useState("");
-
-  //get search term from search input value
-  const handleSearch = (value: string) => {
-    setSearchQuery(value);
-  };
+  //handle search term using search params
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search") ?? "";
 
   //filter FAQs list using search term. But only when faqs or search term changes
   const filteredFaqList = useMemo(() => {
     return faqList.filter((faq) => {
-      return faq.question.toLowerCase().includes(searchQuery.toLowerCase());
+      if (searchQuery !== null) {
+        return faq.question.toLowerCase().includes(searchQuery.toLowerCase());
+      } else {
+        return faqList;
+      }
     });
   }, [faqList, searchQuery]);
 
@@ -49,7 +50,7 @@ export default function Home() {
   return (
     <main className="min-h-screen relative p-4 pb-10 bg-purple-100">
       <BackgroundImage />
-      <Search onSearch={handleSearch} />
+      <Search />
       <Faq
         handleToggle={toggleOpen}
         isOpen={isSomeOpen}

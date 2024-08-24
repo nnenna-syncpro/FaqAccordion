@@ -10,7 +10,7 @@ type SearchProps = {
   onSearch: (value: string) => void;
 };
 
-export default function Search({ onSearch }: SearchProps) {
+export default function Search() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
